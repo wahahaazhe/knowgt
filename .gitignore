@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+
+# Local agent configuration
+.claude/settings.local.json
+.mcp.json

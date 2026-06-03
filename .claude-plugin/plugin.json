@@ -1,0 +1,10 @@
+{
+  "name": "github-trending-briefing",
+  "description": "Generate plain-language GitHub Trending briefings in English and Chinese",
+  "version": "1.0.0",
+  "author": "githubvisual",
+  "skills": [
+    "./skills/productivity/github-trending-briefing/gettrending",
+    "./skills/productivity/github-trending-briefing/gettrendingzh"
+  ]
+}
