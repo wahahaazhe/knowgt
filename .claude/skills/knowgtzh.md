@@ -39,11 +39,17 @@ description: 从 WebFetch/WebSearch 结果生成简洁、易读的 GitHub Trendi
    - 在说明”谁需要它”时，描述具体的人群和场景，而非泛泛的”开发者”或”工程师”。
 
 6. 保存输出（在仓库中工作时）：
-   - **必须同时生成两份报告**：
+   - **默认生成两份 Markdown 报告**（核心输出，必须保证质量）：
      - **简报** → `trending_reports/trending_briefing_YYYY-MM-DD.md`（快速概览）
      - **详细报告** → `trending_reports/trending_detailed_YYYY-MM-DD.md`（新项目逐一深度讲解）
    - 详细报告中，历史上首次出现的项目必须逐一展开讲解，已在历史报告中出现过的项目只需简短引用。
    - 除非用户要求，否则不要覆盖已有报告。
+   - **HTML 可视化是可选附加功能**：
+     - 仅当用户明确要求 "生成HTML"、"可视化展示" 或类似表述时才生成
+     - HTML 文件名：`trending_reports/trending_visual_YYYY-MM-DD.html`
+     - HTML 应包含交互式图表、趋势对比、可展开的项目详情等增强展示效果
+     - 不要因为生成 HTML 而降低 Markdown 报告的讲解质量
+     - Markdown 讲解必须通俗易懂、类比恰当，这是核心价值
 
 ## 简报结构
 

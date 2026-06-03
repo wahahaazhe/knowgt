@@ -39,11 +39,17 @@ Create a plain-language briefing from GitHub Trending. Prefer WebFetch/WebSearch
    - For "who needs it", name concrete people and situations, not broad labels like developer or engineer.
 
 6. Save output when working in a repo:
-   - **Must generate TWO reports**:
+   - **Generate TWO markdown reports by default** (core output, quality must be ensured):
      - **Briefing** → `trending_reports/trending_briefing_YYYY-MM-DD.md` (quick overview)
      - **Detailed** → `trending_reports/trending_detailed_YYYY-MM-DD.md` (deep-dive on each new project)
    - In the detailed report, every first-time project gets a full breakdown. Projects already covered in prior reports get a short citation.
    - Do not overwrite an existing report unless the user asks.
+   - **HTML visualization is an optional add-on**:
+     - Only generate when user explicitly asks for "HTML", "visualization", "interactive display" or similar
+     - HTML filename: `trending_reports/trending_visual_YYYY-MM-DD.html`
+     - HTML should include interactive charts, trend comparisons, expandable project details for enhanced display
+     - Never compromise markdown explanation quality for HTML generation
+     - Plain-language markdown explanations with good analogies are the core value
 
 ## Briefing Shape
 
