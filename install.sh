@@ -25,7 +25,7 @@ echo ""
 # 临时目录
 TMP_DIR=$(mktemp -d)
 echo "🔽 正在下载最新版本..."
-git clone --depth 1 https://github.com/leizhaoqi/githubvisual.git "$TMP_DIR/githubvisual" 2>/dev/null || {
+git clone --depth 1 https://github.com/wahahaazhe/githubvisual.git "$TMP_DIR/githubvisual" 2>/dev/null || {
     echo "❌ 下载失败，请检查网络连接"
     exit 1
 }

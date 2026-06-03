@@ -24,7 +24,7 @@ New-Item -ItemType Directory -Path $tmpDir | Out-Null
 Write-Host "🔽 正在下载最新版本..." -ForegroundColor Yellow
 
 try {
-    git clone --depth 1 https://github.com/leizhaoqi/githubvisual.git "$tmpDir\githubvisual" 2>&1 | Out-Null
+    git clone --depth 1 https://github.com/wahahaazhe/githubvisual.git "$tmpDir\githubvisual" 2>&1 | Out-Null
 } catch {
     Write-Host "❌ 下载失败，请检查网络连接" -ForegroundColor Red
     exit 1

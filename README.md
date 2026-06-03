@@ -12,19 +12,19 @@ Generate plain-language GitHub Trending daily briefings with historical comparis
 
 **macOS / Linux:**
 ```bash
-curl -s https://raw.githubusercontent.com/leizhaoqi/githubvisual/master/install.sh | bash
+curl -s https://raw.githubusercontent.com/wahahaazhe/githubvisual/master/install.sh | bash
 ```
 
 **Windows (PowerShell):**
 ```powershell
-iwr https://raw.githubusercontent.com/leizhaoqi/githubvisual/master/install.ps1 | iex
+iwr https://raw.githubusercontent.com/wahahaazhe/githubvisual/master/install.ps1 | iex
 ```
 
 ### 方式二：手动安装
 
 ```bash
 # 克隆仓库
-git clone https://github.com/leizhaoqi/githubvisual.git
+git clone https://github.com/wahahaazhe/githubvisual.git
 
 # 复制 skill 到你的全局 skills 目录
 cp -r githubvisual/skills/productivity/github-trending-briefing/gettrending ~/.claude/skills/
@@ -34,7 +34,7 @@ cp -r githubvisual/skills/productivity/github-trending-briefing/gettrendingzh ~/
 ### 方式三：作为插件安装
 
 ```bash
-claude plugin install github-trending-briefing@leizhaoqi/githubvisual
+claude plugin install github-trending-briefing@wahahaazhe/githubvisual
 ```
 
 ---
