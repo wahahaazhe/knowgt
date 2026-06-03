@@ -8,31 +8,50 @@ Generate plain-language GitHub Trending daily briefings with historical comparis
 
 ## 🚀 快速开始
 
-### 方式一：安装到 Claude Code
+### 方式一：一键安装（推荐）
 
+**macOS / Linux:**
 ```bash
-# 复制 skill 到你的全局 skills 目录
-cp -r skills/productivity/github-trending-briefing/gettrending ~/.claude/skills/
-cp -r skills/productivity/github-trending-briefing/gettrendingzh ~/.claude/skills/
+curl -s https://raw.githubusercontent.com/leizhaoqi/githubvisual/master/install.sh | bash
 ```
 
-重启 Claude Code，然后直接使用：
+**Windows (PowerShell):**
+```powershell
+iwr https://raw.githubusercontent.com/leizhaoqi/githubvisual/master/install.ps1 | iex
+```
+
+### 方式二：手动安装
+
+```bash
+# 克隆仓库
+git clone https://github.com/leizhaoqi/githubvisual.git
+
+# 复制 skill 到你的全局 skills 目录
+cp -r githubvisual/skills/productivity/github-trending-briefing/gettrending ~/.claude/skills/
+cp -r githubvisual/skills/productivity/github-trending-briefing/gettrendingzh ~/.claude/skills/
+```
+
+### 方式三：作为插件安装
+
+```bash
+claude plugin install github-trending-briefing@leizhaoqi/githubvisual
+```
+
+---
+
+## 使用
+
+重启 Claude Code 后，直接输入命令：
 
 ```
 /gettrending      # 英文简报
 /gettrendingzh    # 中文简报
 ```
 
-或者直接自然语言提问：
+或者自然语言提问：
 - "看看今天 GitHub 有什么热门项目"
 - "生成今日趋势报告"
 - "See what's trending on GitHub today"
-
-### 方式二：作为插件安装
-
-```bash
-claude plugin install github-trending-briefing@your-username/githubvisual
-```
 
 ---
 
