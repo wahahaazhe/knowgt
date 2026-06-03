@@ -1,10 +1,10 @@
 {
-  "name": "github-trending-briefing",
-  "description": "Generate plain-language GitHub Trending briefings in English and Chinese",
+  "name": "knowgt",
+  "description": "Know GitHub Trending - Generate plain-language GitHub Trending briefings in Chinese and English",
   "version": "1.0.0",
-  "author": "githubvisual",
+  "author": "wahahaazhe",
   "skills": [
-    "./skills/productivity/github-trending-briefing/gettrending",
-    "./skills/productivity/github-trending-briefing/gettrendingzh"
+    "./skills/productivity/github-trending-briefing/knowgt",
+    "./skills/productivity/github-trending-briefing/knowgtzh"
   ]
 }

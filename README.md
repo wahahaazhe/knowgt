@@ -1,14 +1,214 @@
-# GitHub Trending Briefing Skills
+# knowgt - Know GitHub Trending
+
+[English](#english) | [中文](#中文)
+
+---
+
+## English
+
+**3 minutes a day, understand GitHub Trending.**
+
+> knowgt = Know GitHub Trending · Plain-language insights into technical trends
+
+Translate abstract technical projects into human-readable terms, intelligently identify recurring content, and show you the real technology trends.
+
+---
+
+### ✨ What can this do?
+
+#### 1. Make the incomprehensible, instantly understandable
+
+> "Distributed semantic engine for end-to-end vector retrieval" → What the heck?
+
+**We translate it for you:**
+> "It's like installing a search engine for your codebase - you can find the code you need using natural language"
+
+Every project is explained in 3 sentences:
+- ✅ What is this actually?
+- ✅ What pain points can it help you solve?
+- ✅ Who actually needs it?
+
+#### 2. No more repetition for projects we've covered
+
+Tired of seeing the same projects every day on GitHub?
+
+**We intelligently identify:**
+- 🔥 **New on the list** → Deep dive, full context
+- ⭐ **Still hot** → One-liner, confirming real demand
+- 📉 **Dropped out** → Help analyze why the heat changed
+
+**Don't waste your time, only see what's genuinely new.**
+
+#### 3. Not just a list, but trend insights
+
+25 projects forgotten after reading? Don't know which way the wind is blowing?
+
+**We help you summarize:**
+> "AI coding tools are dominating today's hot list"
+> "RAG-related projects exploded this week - knowledge engineering is becoming the new battleground"
+> "Only 2 projects made the list 3 days in a row - this isn't short-term hype"
+
+**Watch the hot list to see technology's future, not just gossip.**
+
+---
+
+### 🚀 Quick Start
+
+#### Method 1: One-click Install (Recommended)
+
+**macOS / Linux:**
+```bash
+curl -s https://raw.githubusercontent.com/wahahaazhe/knowgt/main/install.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+iwr https://raw.githubusercontent.com/wahahaazhe/knowgt/main/install.ps1 | iex
+```
+
+#### Method 2: Manual Install
+
+```bash
+# Clone the repo
+git clone https://github.com/wahahaazhe/knowgt.git
+
+# Copy skills to your global skills directory
+cp knowgt/skills/productivity/github-trending-briefing/knowgt/SKILL.md ~/.claude/skills/knowgt.md
+cp knowgt/skills/productivity/github-trending-briefing/knowgtzh/SKILL.md ~/.claude/skills/knowgtzh.md
+```
+
+#### Method 3: Install as Plugin
+
+```bash
+/plugin marketplace add wahahaazhe/knowgt
+/plugin install knowgt
+```
+
+---
+
+### Usage
+
+After restarting Claude Code, two ways to use:
+
+#### 🎯 Method 1: Command (Fastest)
+
+```
+/knowgtzh    # 中文简报 (Chinese)
+/knowgt      # English briefing
+```
+
+#### 💬 Method 2: Natural Language
+
+- "See what's trending on GitHub today"
+- "Generate weekly trending report"
+- "看看今天 GitHub 有什么热门项目"
+- "生成今日趋势报告"
+
+Both methods work the same, pick what you prefer.
+
+---
+
+### 📊 Features
+
+| Feature | Description |
+|---------|-------------|
+| 📝 **Dual Report Mode** | Generates both "briefing" and "detailed" files each time |
+| 🔄 **History Comparison** | Auto-compare with previous reports, identify new/dropped items |
+| 🎯 **Trend Analysis** | Summarize technology winds, interpret the reasons behind |
+| 🌍 **Bilingual Support** | Two independent skills for English and Chinese |
+| 💬 **Plain-Language** | Not just dry lists - tells you "what this actually is" and "who needs it" |
+
+---
+
+### 📁 Output Example
+
+Each run generates two files in `trending_reports/`:
+
+```
+trending_reports/
+├── trending_briefing_2026-06-03.md     # Briefing: New, Still Hot, Dropped, Trends
+└── trending_detailed_2026-06-03.md     # Detailed: Deep dive on each new project
+```
+
+**Briefing includes:**
+- 🔥 Newly trending projects
+- ⭐ Projects staying hot (signaling real demand)
+- 📉 Projects that dropped out (interpreting heat changes)
+- 🎯 Overall technology trend analysis
+
+**Detailed Report includes:**
+- Deep technical breakdown for each project
+- What pain points solved, who really needs it
+- Technical highlights, analogies for explanation
+
+---
+
+### 👥 Who should use this?
+
+| Person | Pain Point | This tool helps |
+|--------|-----------|-----------------|
+| **Tech Leads** | Too busy to scroll GitHub daily | 5 minutes to stay current with tech winds |
+| **Open Source Authors** | Don't know what competitors are doing | See who's trending in your space, learn their selling points |
+| **Investors/Analysts** | Looking for early trend signals | Projects trending consistently are often the next big thing |
+| **Developers** | Want to learn but don't know what | Trending projects = the best learning list |
+| **Product Managers** | Don't know what the tech circle is talking about | Never feel lost talking to engineering teams again |
+
+---
+
+### 🆚 Why use this instead of scrolling yourself?
+
+| | Scrolling GitHub Trending Yourself | Using this Skill |
+|---|-----------------------------------|------------------|
+| ⏱️ Time | 25 projects, click each - 30 minutes min | 3 minutes to see the highlights |
+| 🤔 Understanding | Project descriptions full of jargon, can't tell what they do | Plain-language translation, non-technical people can understand |
+| 🔄 Comparison | Can't remember yesterday's list, can't see changes | Auto-compare history, spot new vs recurring |
+| 📈 Trends | Forget after reading, don't see the big picture | Helps you summarize, cuts to the chase |
+
+---
+
+### 🛠️ Project Structure
+
+```
+knowgt/
+├── skills/productivity/github-trending-briefing/
+│   ├── knowgt/                   # English skill (SKILL.md)
+│   ├── knowgtzh/                 # 中文 skill (SKILL.md)
+│   ├── examples/                 # Output examples
+│   └── README.md
+├── install.sh                    # macOS/Linux one-click install
+├── install.ps1                   # Windows one-click install
+├── PROMO.md                      # Promo copy reference
+├── README.md                       # This file (bilingual)
+└── 每日运行必看.md               # Chinese usage guide
+```
+
+---
+
+### 🤝 Contributing
+
+Issues and PRs welcome!
+
+---
+
+### 📄 License
+
+MIT License
+
+---
+
+## 中文
 
 **每天 3 分钟，看懂 GitHub 热榜。**
+
+> knowgt = Know GitHub Trending · 用中文人话解读技术趋势
 
 把抽象的技术项目翻译成人话，智能识别重复内容，告诉你真正的技术趋势。
 
 ---
 
-## ✨ 这玩意能干嘛？
+### ✨ 这玩意能干嘛？
 
-### 1. 把看不懂的，一秒看懂
+#### 1. 把看不懂的，一秒看懂
 
 > "端到端向量检索的分布式语义引擎" → 什么鬼？
 
@@ -20,7 +220,7 @@
 - ✅ 它能帮你解决什么痛点？
 - ✅ 谁真正需要它？
 
-### 2. 讲过的项目，不再啰嗦
+#### 2. 讲过的项目，不再啰嗦
 
 每天刷 GitHub 发现翻来覆去都是那几个老面孔？
 
@@ -31,7 +231,7 @@
 
 **不浪费你的时间，只看真正的新东西。**
 
-### 3. 不仅仅是列表，更是趋势洞察
+#### 3. 不仅仅是列表，更是趋势洞察
 
 25 个项目看完就忘？不知道风向在哪？
 
@@ -44,56 +244,63 @@
 
 ---
 
-## 🚀 快速开始
+### 🚀 快速开始
 
-### 方式一：一键安装（推荐）
+#### 方式一：一键安装（推荐）
 
 **macOS / Linux:**
 ```bash
-curl -s https://raw.githubusercontent.com/wahahaazhe/githubvisual/master/install.sh | bash
+curl -s https://raw.githubusercontent.com/wahahaazhe/knowgt/main/install.sh | bash
 ```
 
 **Windows (PowerShell):**
 ```powershell
-iwr https://raw.githubusercontent.com/wahahaazhe/githubvisual/master/install.ps1 | iex
+iwr https://raw.githubusercontent.com/wahahaazhe/knowgt/main/install.ps1 | iex
 ```
 
-### 方式二：手动安装
+#### 方式二：手动安装
 
 ```bash
 # 克隆仓库
-git clone https://github.com/wahahaazhe/githubvisual.git
+git clone https://github.com/wahahaazhe/knowgt.git
 
 # 复制 skill 到你的全局 skills 目录
-cp githubvisual/skills/productivity/github-trending-briefing/gettrending.md ~/.claude/skills/
-cp githubvisual/skills/productivity/github-trending-briefing/gettrendingzh.md ~/.claude/skills/
+cp knowgt/skills/productivity/github-trending-briefing/knowgt/SKILL.md ~/.claude/skills/knowgt.md
+cp knowgt/skills/productivity/github-trending-briefing/knowgtzh/SKILL.md ~/.claude/skills/knowgtzh.md
 ```
 
-### 方式三：作为插件安装
+#### 方式三：作为插件安装
 
 ```bash
-claude plugin install github-trending-briefing@wahahaazhe/githubvisual
+/plugin marketplace add wahahaazhe/knowgt
+/plugin install knowgt
 ```
 
 ---
 
-## 使用
+### 使用
 
-重启 Claude Code 后，直接输入命令：
+重启 Claude Code 后，两种方式都可以：
+
+#### 🎯 方式一：命令式（最快）
 
 ```
-/gettrending      # 英文简报
-/gettrendingzh    # 中文简报
+/knowgtzh    # 中文简报
+/knowgt      # English briefing
 ```
 
-或者自然语言提问：
+#### 💬 方式二：自然语言
+
 - "看看今天 GitHub 有什么热门项目"
 - "生成今日趋势报告"
 - "See what's trending on GitHub today"
+- "Generate weekly trending report"
+
+两种方式效果一样，选你喜欢的就好。
 
 ---
 
-## 📊 功能特性
+### 📊 功能特性
 
 | 特性 | 说明 |
 |------|------|
@@ -105,7 +312,7 @@ claude plugin install github-trending-briefing@wahahaazhe/githubvisual
 
 ---
 
-## 📁 输出示例
+### 📁 输出示例
 
 每次运行会在 `trending_reports/` 目录生成两个文件：
 
@@ -128,7 +335,7 @@ trending_reports/
 
 ---
 
-## 👥 什么样的人应该用？
+### 👥 什么样的人应该用？
 
 | 人群 | 痛点 | 这个工具能帮你 |
 |------|------|----------------|
@@ -140,7 +347,7 @@ trending_reports/
 
 ---
 
-## 🆚 为什么用这个，而不是自己刷？
+### 🆚 为什么用这个，而不是自己刷？
 
 |  | 自己刷 GitHub Trending | 用这个 Skill |
 |--|------------------------|--------------|
@@ -151,30 +358,30 @@ trending_reports/
 
 ---
 
-## 🛠️ 项目结构
+### 🛠️ 项目结构
 
 ```
-githubvisual/
+knowgt/
 ├── skills/productivity/github-trending-briefing/
-│   ├── gettrending.md           # English skill
-│   ├── gettrendingzh.md         # 中文 skill
-│   ├── examples/                # 输出示例
+│   ├── knowgt/                   # English skill (SKILL.md)
+│   ├── knowgtzh/                 # 中文 skill (SKILL.md)
+│   ├── examples/                 # 输出示例
 │   └── README.md
-├── trending_reports/            # 历史报告存档
-├── install.sh                   # macOS/Linux 一键安装
-├── install.ps1                  # Windows 一键安装
-├── PROMO.md                     # 推广文案参考
-└── 每日运行必看.md              # 中文使用指南
+├── install.sh                    # macOS/Linux 一键安装
+├── install.ps1                   # Windows 一键安装
+├── PROMO.md                      # 推广文案参考
+├── README.md                     # 本文件（中英文双语）
+└── 每日运行必看.md               # 中文使用指南
 ```
 
 ---
 
-## 🤝 贡献
+### 🤝 贡献
 
 欢迎提交 Issue 和 PR！
 
 ---
 
-## 📄 许可证
+### 📄 许可证
 
 MIT License

@@ -1,5 +1,5 @@
 ---
-name: gettrending
+name: knowgt
 description: Generate concise, human-readable GitHub Trending briefings from WebFetch/WebSearch results, compare against prior markdown reports when available, and write daily or weekly trend summaries. Use when the user asks to analyze GitHub Trending, compare today's GitHub trends with history, explain trending repositories in plain language, or create a repeatable GitHub Trending report for Codex, Claude Code, or another coding agent.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: gettrendingzh
+name: knowgtzh
 description: 从 WebFetch/WebSearch 结果生成简洁、易读的 GitHub Trending 中文简报，与已有的 markdown 历史报告对比，并撰写每日或每周趋势总结。当用户要求分析 GitHub 热门趋势、对比今日与历史趋势、用通俗语言解释热门仓库，或为 Codex、Claude Code 等编码助手创建可重复的 GitHub 趋势报告时使用。
 ---
 

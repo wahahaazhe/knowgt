@@ -1,46 +1,50 @@
-# GitHub Trending Briefing
+# knowgt - Know GitHub Trending
 
-Generate plain-language GitHub Trending briefings from Claude Code. Available in English and Chinese.
+Generate plain-language GitHub Trending briefings for Claude Code. Available in English and Chinese.
 
 | Command | Language | 
 |---------|----------|
-| `/gettrending` | English |
-| `/gettrendingzh` | 中文 |
+| `/knowgt` | English |
+| `/knowgtzh` | 中文 |
 
 ## Install
 
-### Claude Code
+### Claude Code Plugin
 
 ```bash
-claude plugin install github-trending-briefing@<your-github-username>/githubvisual
+/plugin marketplace add wahahaazhe/knowgt
+/plugin install knowgt
 ```
 
 Or manually:
 
 ```bash
 # Copy skills to your global skills directory
-cp -r skills/productivity/github-trending-briefing/gettrending ~/.claude/skills/
-cp -r skills/productivity/github-trending-briefing/gettrendingzh ~/.claude/skills/
+cp skills/productivity/github-trending-briefing/knowgt/SKILL.md ~/.claude/skills/knowgt.md
+cp skills/productivity/github-trending-briefing/knowgtzh/SKILL.md ~/.claude/skills/knowgtzh.md
 ```
-
-### Codex / Other Agents
-
-Add this repo as a skill source, then reference `skills/productivity/github-trending-briefing/gettrending/SKILL.md` or `gettrendingzh/SKILL.md`.
 
 ## Usage
 
+### Quick Commands
+
 ```
-/gettrending
+/knowgtzh    # 中文简报
+/knowgt      # English briefing
 ```
 
-Or ask naturally: "See what's trending on GitHub today", "看看今天的 GitHub 热门项目"
+### Natural Language
+
+- English: "See what's trending on GitHub today", "Show weekly trends"
+- 中文: "看看今天的 GitHub 热门项目", "生成趋势报告"
 
 ## What It Does
 
-1. Fetches current [GitHub Trending](https://github.com/trending)
-2. Compares against historical reports (if available)
-3. Groups repositories by theme
-4. Generates two reports:
+1. Fetches current [GitHub Trending](https://github.com/trending) (daily + weekly + monthly
+2. Cross-comparison across three timeframes
+3. Compares against historical reports (if available)
+4. Groups repositories by theme
+5. Generates two reports:
    - **Briefing** — quick overview with new/still hot/dropped out
    - **Detailed** — deep-dive on every new project with plain-language explanations
 
@@ -50,9 +54,9 @@ Reports are saved to `trending_reports/`.
 
 ```
 skills/productivity/github-trending-briefing/
-├── gettrending/
+├── knowgt/
 │   └── SKILL.md          # English skill
-├── gettrendingzh/
+├── knowgtzh/
 │   └── SKILL.md          # Chinese skill
 ├── examples/
 │   └── trending_briefing_2026-05-27.md

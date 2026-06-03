@@ -4,3 +4,13 @@ __pycache__/
 # Local agent configuration
 .claude/settings.local.json
 .mcp.json
+
+# 不需要上传的目录
+archive/
+trending_reports/
+
+# 临时文件
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
