@@ -38,12 +38,27 @@ description: 从 WebFetch/WebSearch 结果生成简洁、易读的 GitHub Trendi
    - 仅在解释不熟悉的项目时使用简单的类比。
    - 在说明”谁需要它”时，描述具体的人群和场景，而非泛泛的”开发者”或”工程师”。
 
-6. 保存输出（在仓库中工作时）：
+6. 保存 markdown 输出（在仓库中工作时）：
    - **必须同时生成两份报告**：
      - **简报** → `trending_reports/trending_briefing_YYYY-MM-DD.md`（快速概览）
      - **详细报告** → `trending_reports/trending_detailed_YYYY-MM-DD.md`（新项目逐一深度讲解）
    - 详细报告中，历史上首次出现的项目必须逐一展开讲解，已在历史报告中出现过的项目只需简短引用。
    - 除非用户要求，否则不要覆盖已有报告。
+
+7. 生成 HTML 报告并在浏览器中打开：
+   - 读取模板文件 `skills/productivity/github-trending-briefing/reference/briefing-template.html`，理解其 CSS 和 DOM 结构。模板采用**单页双标签设计**，将简报和详细报告合并在同一页面。
+   - 生成 `trending_reports/trending_briefing_YYYY-MM-DD.html`，使用与模板**完全相同的 CSS 和 DOM 结构**。将每个部分填入真实数据：
+     - **Hero 头部**：更新标题、日期、周期、来源、对比基准等信息。
+     - **Stats 统计栏**：将示例数字替换为实际统计（总项目数、新上榜数、持续热门数、掉榜数）。
+     - **简报标签页**（"新上榜"表格、"持续热门"表格、"掉出榜单"表格、"趋势解读"段落、"完整榜单"表格）。有真实数据后移除 empty-row 占位行。
+     - **详细标签页**（`.detail-list`）：对每个**首次出现**的项目，渲染完整的 `.project-card`，包含头部（排名、名称+链接、语言标签、stars 数）和正文（what-is-it、`.proj-analogy` 类比、`.proj-helps` 帮助列表、`.persona` 适用人群标签）。对已在历史报告中出现过的项目，渲染较短的 `.project-card`，降低透明度，添加引用说明而无需重复完整解读。
+     - **标签切换 `<script>`**：保留模板中的 `switchTab()` 函数以确保标签切换正常工作。
+   - HTML 文件必须是自包含的（不依赖外部资源），所有 CSS 保持在 `<style>` 标签内，所有 JS 保持在 `<script>` 标签内。
+   - 写入 HTML 文件后，在默认浏览器中打开：
+     - **macOS**：运行 `open trending_reports/trending_briefing_YYYY-MM-DD.html`
+     - **Linux**：运行 `xdg-open trending_reports/trending_briefing_YYYY-MM-DD.html`
+     - **Windows**：运行 `start trending_reports/trending_briefing_YYYY-MM-DD.html`（cmd）或 `Start-Process trending_reports/trending_briefing_YYYY-MM-DD.html`（PowerShell）
+   - 自动检测平台，不要询问用户使用什么操作系统。
 
 ## 简报结构
 

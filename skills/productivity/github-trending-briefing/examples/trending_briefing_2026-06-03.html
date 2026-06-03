@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Trending Briefing · 2026-06-03</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+                 "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.6;
+    color: #1a1a2e;
+    background: #f0f2f5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hero {
+    position: relative;
+    background: linear-gradient(160deg, #0d1117 0%, #161b22 40%, #0f1a2e 70%, #1a0a2e 100%);
+    color: #fff;
+    padding: 56px 0 44px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 50%, rgba(88,166,255,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(163,113,247,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12) 30%, rgba(255,255,255,0.12) 70%, transparent);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .hero h1 {
+    font-size: 30px;
+    font-weight: 750;
+    letter-spacing: -0.6px;
+    line-height: 1.25;
+  }
+  .hero h1 .icon { margin-right: 10px; }
+  .hero .subtitle {
+    margin-top: 6px;
+    font-size: 15px;
+    color: #8b949e;
+    font-weight: 400;
+  }
+  .hero .meta-row {
+    margin-top: 18px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .hero .meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(255,255,255,0.08);
+    color: #c9d1d9;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .hero .meta-chip .chip-label { color: #58a6ff; font-weight: 600; margin-right: 2px; }
+
+  .stats-bar {
+    max-width: 1000px;
+    margin: -18px auto 0;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .stat-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    border: 1px solid #e8eaed;
+  }
+  .stat-card .stat-num {
+    font-size: 28px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+  }
+  .stat-card .stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-top: 2px;
+  }
+  .stat-new  .stat-num { color: #1a7f37; }
+  .stat-hot  .stat-num { color: #9a6700; }
+  .stat-drop .stat-num { color: #cf222e; }
+  .stat-total .stat-num { color: #0969da; }
+
+  .main {
+    max-width: 1000px;
+    margin: 28px auto 0;
+    padding: 0 24px;
+    padding-bottom: 80px;
+  }
+
+  .tab-nav {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #e8eaed;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    border-radius: 7px;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .tab-btn.active {
+    background: #0969da;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(9,105,218,0.3);
+  }
+  .tab-btn:not(.active):hover { color: #1a1a2e; background: #f6f8fa; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 26px 30px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #e8eaed;
+  }
+  .section h2 {
+    font-size: 18px;
+    font-weight: 650;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .badge-new  { background: #dafbe1; color: #116329; }
+  .badge-hot  { background: #fff8c5; color: #7a6000; }
+  .badge-drop { background: #ffebe9; color: #a40e26; }
+
+  .table-wrap { overflow-x: auto; margin: 0 -4px; padding: 0 4px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 620px;
+  }
+  thead th {
+    text-align: left;
+    padding: 8px 12px 10px;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6b7280;
+    border-bottom: 2px solid #e5e7eb;
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 11px 12px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: middle;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr { transition: background 0.15s; }
+  tbody tr:hover { background: #f6f8fa; }
+
+  .rank-num { font-weight: 700; color: #6b7280; font-size: 13px; }
+  .project-link { color: #0969da; text-decoration: none; font-weight: 600; }
+  .project-link:hover { text-decoration: underline; }
+  .lang-tag {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    background: #f0f0f5;
+    color: #555;
+    white-space: nowrap;
+  }
+  .stars-num   { font-weight: 650; color: #1a1a2e; white-space: nowrap; }
+  .stars-gained { color: #1a7f37; font-weight: 650; white-space: nowrap; }
+  .stars-lost   { color: #cf222e; font-weight: 650; white-space: nowrap; }
+  .evidence-text { font-size: 13px; color: #6b7280; }
+  .explain-text  { font-size: 14px; line-height: 1.55; }
+
+  .trend-read p { margin-bottom: 10px; font-size: 15px; line-height: 1.75; }
+  .trend-read p:last-child { margin-bottom: 0; }
+
+  .detail-list { display: flex; flex-direction: column; gap: 20px; }
+
+  .project-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #e8eaed;
+  }
+  .project-card-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f5;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .project-card-header .name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .project-card-header h3 {
+    font-size: 18px;
+    font-weight: 650;
+  }
+  .project-card-header h3 a {
+    color: #0969da;
+    text-decoration: none;
+  }
+  .project-card-header h3 a:hover { text-decoration: underline; }
+  .project-card-header .stars-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 13px;
+    color: #6b7280;
+    white-space: nowrap;
+  }
+  .project-card-body {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .proj-what-is-it {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .proj-what-is-it strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+  .proj-analogy {
+    background: #f6f8fa;
+    border-left: 3px solid #d0d7de;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #444;
+    font-style: italic;
+  }
+  .proj-analogy strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #6b7280;
+    margin-bottom: 4px;
+    font-style: normal;
+  }
+  .proj-helps ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .proj-helps li {
+    font-size: 14px;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .proj-helps li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #0969da;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .proj-helps strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #6b7280;
+    margin-bottom: 6px;
+  }
+  .proj-who {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .proj-who strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+  .proj-who .persona {
+    display: inline-block;
+    padding: 3px 10px;
+    margin: 2px 4px 2px 0;
+    background: #eaf2fd;
+    color: #0550ae;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .empty-row td { text-align: center; color: #9ca3af; padding: 20px 12px !important; }
+
+  .footer {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    text-align: center;
+    font-size: 12px;
+    color: #9ca3af;
+  }
+
+  @media (max-width: 700px) {
+    .hero { padding: 36px 0 30px; }
+    .hero h1 { font-size: 22px; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat-card { padding: 14px 12px; }
+    .stat-card .stat-num { font-size: 22px; }
+    .section { padding: 18px 14px; }
+    .tab-nav { flex-wrap: wrap; }
+    .tab-btn { flex: unset; width: 50%; }
+    .project-card-header { flex-direction: column; gap: 8px; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    .hero { background: #0d1117; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .tab-nav { display: none; }
+    .tab-content { display: block !important; margin-bottom: 30px; }
+    .section, .project-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+    .stats-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-content">
+    <h1><span class="icon">&#x1f4ca;</span>GitHub Trending Briefing &mdash; 2026-06-03</h1>
+    <p class="subtitle">Plain-language insights into what the developer world is excited about today.</p>
+    <div class="meta-row">
+      <span class="meta-chip"><span class="chip-label">Since</span> daily</span>
+      <span class="meta-chip"><span class="chip-label">Source</span> github.com/trending</span>
+      <span class="meta-chip"><span class="chip-label">Baseline</span> 2026-06-02, 2026-05-30</span>
+    </div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-card stat-total"><div class="stat-num">25</div><div class="stat-label">Total Repos</div></div>
+  <div class="stat-card stat-new"><div class="stat-num">8</div><div class="stat-label">New Entries</div></div>
+  <div class="stat-card stat-hot"><div class="stat-num">12</div><div class="stat-label">Still Hot</div></div>
+  <div class="stat-card stat-drop"><div class="stat-num">5</div><div class="stat-label">Dropped Out</div></div>
+</div>
+
+<div class="main">
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('briefing', this)">Briefing</button>
+    <button class="tab-btn" onclick="switchTab('detailed', this)">Detailed Report</button>
+  </div>
+
+  <!-- ═══ BRIEFING TAB ═══ -->
+  <div id="tab-briefing" class="tab-content active">
+
+    <div class="section">
+      <h2><span class="badge badge-new">NEW</span> New On The List</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Project</th><th>Lang</th><th>Stars Gained</th><th>Plain-English Use</th></tr></thead>
+          <tbody>
+            <tr><td class="rank-num">1</td><td><a class="project-link" href="https://github.com/microsoft/graphrag">microsoft/graphrag</a></td><td><span class="lang-tag">Python</span></td><td class="stars-gained">+2,400</td><td class="explain-text">A data pipeline that extracts knowledge graphs from raw text, making LLMs better at reasoning over large document collections.</td></tr>
+            <tr><td class="rank-num">3</td><td><a class="project-link" href="https://github.com/xyflow/xyflow">xyflow/xyflow</a></td><td><span class="lang-tag">TypeScript</span></td><td class="stars-gained">+1,800</td><td class="explain-text">A React library for building node-based editors — flowcharts, diagrams, and visual programming UIs.</td></tr>
+            <tr><td class="rank-num">7</td><td><a class="project-link" href="https://github.com/docker/awesome-compose">docker/awesome-compose</a></td><td><span class="lang-tag">HTML</span></td><td class="stars-gained">+950</td><td class="explain-text">Curated Docker Compose samples that let you spin up full application stacks in one command.</td></tr>
+            <tr><td class="rank-num">9</td><td><a class="project-link" href="https://github.com/jdx/mise">jdx/mise</a></td><td><span class="lang-tag">Rust</span></td><td class="stars-gained">+820</td><td class="explain-text">A single tool to manage dev tool versions, environment variables, and task running — replaces asdf, direnv, make.</td></tr>
+            <tr><td class="rank-num">12</td><td><a class="project-link" href="https://github.com/opentofu/opentofu">opentofu/opentofu</a></td><td><span class="lang-tag">Go</span></td><td class="stars-gained">+780</td><td class="explain-text">Open-source infrastructure-as-code tool, drop-in replacement for Terraform with community governance.</td></tr>
+            <tr><td class="rank-num">15</td><td><a class="project-link" href="https://github.com/continuedev/continue">continuedev/continue</a></td><td><span class="lang-tag">TypeScript</span></td><td class="stars-gained">+720</td><td class="explain-text">AI code assistant that lives inside your IDE, understands your codebase, and can edit multiple files at once.</td></tr>
+            <tr><td class="rank-num">18</td><td><a class="project-link" href="https://github.com/nicbarker/clay">nicbarker/clay</a></td><td><span class="lang-tag">C</span></td><td class="stars-gained">+650</td><td class="explain-text">A minimal UI layout library in C that computes positions only — you bring your own rendering backend.</td></tr>
+            <tr><td class="rank-num">22</td><td><a class="project-link" href="https://github.com/hacksider/Deep-Live-Cam">hacksider/Deep-Live-Cam</a></td><td><span class="lang-tag">Python</span></td><td class="stars-gained">+580</td><td class="explain-text">Real-time face-swapping for video calls — use a single photo to replace your face in live streams.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="badge badge-hot">STILL HOT</span> Still Hot</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Project</th><th>Evidence</th><th>Why It Matters</th></tr></thead>
+          <tbody>
+            <tr><td><a class="project-link" href="https://github.com/coollabsio/coolify">coollabsio/coolify</a></td><td class="evidence-text">6 consecutive days on list</td><td class="explain-text">Self-hosting demand is real — people want Heroku-like simplicity on their own servers.</td></tr>
+            <tr><td><a class="project-link" href="https://github.com/codecrafters-io/build-your-own-x">codecrafters-io/build-your-own-x</a></td><td class="evidence-text">10+ days, consistently top 5</td><td class="explain-text">Learning-by-building remains the dominant way developers pick up new skills.</td></tr>
+            <tr><td><a class="project-link" href="https://github.com/browser-use/browser-use">browser-use/browser-use</a></td><td class="evidence-text">4 days on list, rising</td><td class="explain-text">AI browser agents are crossing from experiment to practical tool — web automation is the next frontier.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="badge badge-drop">DROPPED</span> Dropped Out</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Project</th><th>Previous Status</th><th>Likely Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><a class="project-link" href="https://github.com/lmstudio/lmstudio">lmstudio/lmstudio</a></td><td class="evidence-text">#4 yesterday</td><td class="explain-text">Likely a one-day spike from a release announcement — core demand is steady but not trending-tier.</td></tr>
+            <tr><td><a class="project-link" href="https://github.com/unclecode/crawl4ai">unclecode/crawl4ai</a></td><td class="evidence-text">Top 10 for 3 days, now gone</td><td class="explain-text">Web scraping tools spike when a trending AI use case depends on them, then settle as the use case normalizes.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section trend-read">
+      <h2>&#x1f50d; Trend Read</h2>
+      <p>AI tools are eating the trending page. Of the 25 projects today, 14 are AI-related — but not the foundation models anymore. The action has shifted <strong>from building models to using them</strong>: coding assistants, browser agents, knowledge graph pipelines, and real-time media manipulation. The "make it work" phase is over; the "make it useful" phase is here.</p>
+      <p>Self-hosting and open-source governance are the second big theme. Coolify continues its streak, OpenTofu hit the list for the first time, and Docker's curated Compose samples are trending — all pointing to a broader desire to own infrastructure without paying SaaS tax.</p>
+    </div>
+
+    <div class="section">
+      <h2>&#x1f4cb; Full List</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Project</th><th>Lang</th><th>Total Stars</th><th>Stars Gained</th></tr></thead>
+          <tbody>
+            <tr><td class="rank-num">1</td><td><a class="project-link" href="https://github.com/microsoft/graphrag">microsoft/graphrag</a></td><td><span class="lang-tag">Python</span></td><td class="stars-num">28,500</td><td class="stars-gained">+2,400</td></tr>
+            <tr><td class="rank-num">2</td><td><a class="project-link" href="https://github.com/coollabsio/coolify">coollabsio/coolify</a></td><td><span class="lang-tag">PHP</span></td><td class="stars-num">36,000</td><td class="stars-gained">+2,100</td></tr>
+            <tr><td class="rank-num">3</td><td><a class="project-link" href="https://github.com/xyflow/xyflow">xyflow/xyflow</a></td><td><span class="lang-tag">TypeScript</span></td><td class="stars-num">22,000</td><td class="stars-gained">+1,800</td></tr>
+            <tr><td class="rank-num">4</td><td><a class="project-link" href="https://github.com/codecrafters-io/build-your-own-x">codecrafters-io/build-your-own-x</a></td><td><span class="lang-tag">Markdown</span></td><td class="stars-num">320,000</td><td class="stars-gained">+1,500</td></tr>
+            <tr><td class="rank-num">5</td><td><a class="project-link" href="https://github.com/browser-use/browser-use">browser-use/browser-use</a></td><td><span class="lang-tag">Python</span></td><td class="stars-num">18,200</td><td class="stars-gained">+1,300</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /tab-briefing -->
+
+  <!-- ═══ DETAILED TAB ═══ -->
+  <div id="tab-detailed" class="tab-content">
+
+    <div class="detail-list">
+
+      <!-- microsoft/graphrag -->
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="name-row">
+            <span class="rank-num">#1</span>
+            <h3><a href="https://github.com/microsoft/graphrag">microsoft/graphrag</a></h3>
+            <span class="lang-tag">Python</span>
+          </div>
+          <div class="stars-info">
+            <span class="stars-num">28,500 total</span>
+            <span class="stars-gained">+2,400 today</span>
+          </div>
+        </div>
+        <div class="project-card-body">
+          <div class="proj-what-is-it">
+            <strong>What is it?</strong>
+            A data pipeline from Microsoft that extracts entities, relationships, and knowledge graphs from raw documents — then uses those graphs to make LLM answers more accurate and grounded.
+          </div>
+          <div class="proj-analogy">
+            <strong>Simple analogy</strong>
+            It's like giving an LLM a well-organized index of a textbook instead of dumping the whole book on its desk. The index helps it find the right pages instead of flipping through everything.
+          </div>
+          <div class="proj-helps">
+            <strong>What can it help you do?</strong>
+            <ul>
+              <li>Help you build Q&amp;A systems that actually cite the right source documents</li>
+              <li>Let you connect scattered information across thousands of internal docs automatically</li>
+              <li>Save you from LLMs that confidently make up answers when the real info exists in your files</li>
+            </ul>
+          </div>
+          <div class="proj-who">
+            <strong>Who actually needs it?</strong>
+            <span class="persona">Enterprise architect building internal knowledge base search</span>
+            <span class="persona">Data engineer tired of chunk-and-embed pipelines that miss connections</span>
+            <span class="persona">Legal tech PM needing accurate document retrieval for compliance</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- xyflow/xyflow -->
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="name-row">
+            <span class="rank-num">#3</span>
+            <h3><a href="https://github.com/xyflow/xyflow">xyflow/xyflow</a></h3>
+            <span class="lang-tag">TypeScript</span>
+          </div>
+          <div class="stars-info">
+            <span class="stars-num">22,000 total</span>
+            <span class="stars-gained">+1,800 today</span>
+          </div>
+        </div>
+        <div class="project-card-body">
+          <div class="proj-what-is-it">
+            <strong>What is it?</strong>
+            A React component library for building interactive node-based editors — think flowcharts, workflow builders, and visual programming interfaces that users can drag-and-drop.
+          </div>
+          <div class="proj-analogy">
+            <strong>Simple analogy</strong>
+            Like Lego baseplates and bricks delivered to your doorstep — you get the foundation for building a diagram editor, and you just snap your business logic on top.
+          </div>
+          <div class="proj-helps">
+            <strong>What can it help you do?</strong>
+            <ul>
+              <li>Help you ship a workflow builder UI in weeks instead of months</li>
+              <li>Let you offer drag-and-drop automation features that used to require a whole frontend team</li>
+              <li>Save you from reinventing zoom, pan, selection, and edge routing for the hundredth time</li>
+            </ul>
+          </div>
+          <div class="proj-who">
+            <strong>Who actually needs it?</strong>
+            <span class="persona">SaaS founder building a no-code automation product</span>
+            <span class="persona">Frontend lead tasked with "make a visual pipeline editor" by Friday</span>
+            <span class="persona">Internal tools engineer building a data ETL visual designer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- jdx/mise -->
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="name-row">
+            <span class="rank-num">#12</span>
+            <h3><a href="https://github.com/jdx/mise">jdx/mise</a></h3>
+            <span class="lang-tag">Rust</span>
+          </div>
+          <div class="stars-info">
+            <span class="stars-num">10,500 total</span>
+            <span class="stars-gained">+820 today</span>
+          </div>
+        </div>
+        <div class="project-card-body">
+          <div class="proj-what-is-it">
+            <strong>What is it?</strong>
+            A single CLI tool that replaces asdf, direnv, and make — manages language versions, environment variables, and runs tasks per directory.
+          </div>
+          <div class="proj-analogy">
+            <strong>Simple analogy</strong>
+            Like a Swiss Army knife for your terminal — instead of carrying three separate tools that each do one thing, you carry one that does all three and fits in the same pocket.
+          </div>
+          <div class="proj-helps">
+            <strong>What can it help you do?</strong>
+            <ul>
+              <li>Help you switch Node/Python/Go versions automatically when you cd into a project</li>
+              <li>Let you define per-project environment variables without polluting your global shell</li>
+              <li>Save you from maintaining three different config files (.tool-versions, .envrc, Makefile)</li>
+            </ul>
+          </div>
+          <div class="proj-who">
+            <strong>Who actually needs it?</strong>
+            <span class="persona">Developer juggling 5 projects with different Node and Python versions</span>
+            <span class="persona">Platform engineer standardizing dev environments across a team</span>
+            <span class="persona">Anyone whose .zshrc has grown to 300 lines of workarounds</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Already-covered projects get a concise card -->
+      <div class="project-card" style="opacity: 0.65;">
+        <div class="project-card-header">
+          <div class="name-row">
+            <span class="rank-num">#2</span>
+            <h3><a href="https://github.com/coollabsio/coolify">coollabsio/coolify</a></h3>
+            <span class="lang-tag">PHP</span>
+          </div>
+          <div class="stars-info">
+            <span class="stars-num">36,000 total</span>
+            <span class="stars-gained">+2,100 today</span>
+          </div>
+        </div>
+        <div class="project-card-body">
+          <p style="color:#6b7280; font-size:14px;">&#x1f503; Covered in detail in <strong>2026-05-30 report</strong>. Still going strong — self-hostable Heroku alternative, now with Kubernetes support added this week.</p>
+        </div>
+      </div>
+
+    </div><!-- /detail-list -->
+
+  </div><!-- /tab-detailed -->
+
+</div><!-- /main -->
+
+<div class="footer">
+  Generated by knowgt &middot; 2026-06-03 09:15 UTC
+</div>
+
+<script>
+  function switchTab(name, el) {
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-content').forEach(function(tab) {
+      tab.classList.remove('active');
+    });
+    el.classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
