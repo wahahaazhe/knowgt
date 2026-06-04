@@ -151,7 +151,7 @@ Each run generates two files in `trending_reports/`:
 
 ```
 trending_reports/
-├── trending_briefing_2026-06-03.md     # Briefing: New, Still Hot, Dropped, Trends
+├── trending_briefing_2026-06-03.md     # Briefing: New, Recent Best, Dropped, Trends
 └── trending_detailed_2026-06-03.md     # Detailed: Deep dive on each new project
 ```
 

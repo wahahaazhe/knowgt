@@ -26,7 +26,7 @@ Create a plain-language briefing from GitHub Trending. Prefer WebFetch/WebSearch
 
 4. Compare:
    - Identify new entries that did not appear in recent reports.
-   - Identify projects that stayed hot across runs.
+   - Find recent best performers: consistently hot projects + high-growth hidden gems.
    - Group the trend by theme, such as AI coding agents, developer tools, infra, UI, data, security, or education.
 
 5. Write the briefing:
@@ -48,8 +48,8 @@ Create a plain-language briefing from GitHub Trending. Prefer WebFetch/WebSearch
    - Read the template at `skills/productivity/github-trending-briefing/reference/briefing-template.html` to understand its CSS and DOM structure. The template is a **single-page, two-tab design** that merges both briefing and detailed views.
    - Generate `trending_reports/trending_briefing_YYYY-MM-DD.html` using the **exact same CSS and DOM structure** as the template. Fill every section with real data:
      - **Hero**: update title, date, since-period, source, baseline chips.
-     - **Stats bar**: replace sample numbers with actual counts (total repos, new entries, still hot).
-     - **Briefing tab** ("New On The List" table, "Still Hot" table, "Trend Read" paragraphs, "Full List" table). Remove empty-row placeholders once real rows exist.
+     - **Stats bar**: replace sample numbers with actual counts (total repos, new entries, recent best).
+     - **Briefing tab** ("New On The List" table, "Recent Best" table, "Trend Read" paragraphs, "Full List" table). Remove empty-row placeholders once real rows exist.
      - **Detailed tab** (`.detail-list`): for each **first-time** project, render a full `.project-card` with header (rank, name+link, lang-tag, stars) and body (what-is-it, analogy in `.proj-analogy`, helps-list in `.proj-helps`, who-needs-it with `.persona` tags). For projects already covered in prior reports, render a shorter `.project-card` with lower opacity and a note referencing the earlier report instead of repeating the full breakdown.
      - **Tab-switching `<script>`**: keep the exact `switchTab()` function from the template so tabs work.
    - The HTML file must be self-contained (no external resources). All CSS stays inline in `<style>`, all JS inline in `<script>`.
@@ -75,7 +75,7 @@ Use this structure unless the user asks for something else:
 | Rank | Project | Language | Stars Gained | Plain-English Use |
 |------|---------|----------|--------------|-------------------|
 
-## Still Hot
+## Recent Best
 
 | Project | Evidence | Why It Matters |
 |---------|----------|----------------|

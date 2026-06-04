@@ -31,7 +31,7 @@ description: 从 WebFetch/WebSearch 结果生成简洁、易读的 GitHub Trendi
 
 5. 对比分析：
    - 识别未在近期报告中出现的新上榜项目。
-   - 识别在多轮报告中持续热门的项目。
+   - 识别近期最佳项目：连续上榜的稳定热门 + 增长迅猛的潜力项目。
    - 按主题归类趋势，例如 AI 编码助手、开发者工具、基础设施、UI、数据、安全、教育等。
 
 6. 撰写简报：
@@ -53,8 +53,8 @@ description: 从 WebFetch/WebSearch 结果生成简洁、易读的 GitHub Trendi
    - 读取模板文件 `skills/productivity/github-trending-briefing/reference/briefing-template.html`，理解其 CSS 和 DOM 结构。模板采用**单页双标签设计**，将简报和详细报告合并在同一页面。
    - 生成 `trending_reports/trending_briefing_YYYY-MM-DD.html`，使用与模板**完全相同的 CSS 和 DOM 结构**。将每个部分填入真实数据：
      - **Hero 头部**：更新标题、日期、周期、来源、对比基准等信息。
-     - **Stats 统计栏**：将示例数字替换为实际统计（总项目数、新上榜数、持续热门数）。
-     - **简报标签页**（"新上榜"表格、"持续热门"表格、"趋势解读"段落、"完整榜单"表格）。有真实数据后移除 empty-row 占位行。
+     - **Stats 统计栏**：将示例数字替换为实际统计（总项目数、新上榜数、近期最佳数）。
+     - **简报标签页**（"新上榜"表格、"近期最佳"表格、"趋势解读"段落、"完整榜单"表格）。有真实数据后移除 empty-row 占位行。
      - **详细标签页**（`.detail-list`）：对每个**首次出现**的项目，渲染完整的 `.project-card`，包含头部（排名、名称+链接、语言标签、stars 数）和正文（what-is-it、`.proj-analogy` 类比、`.proj-helps` 帮助列表、`.persona` 适用人群标签）。对已在历史报告中出现过的项目，渲染较短的 `.project-card`，降低透明度，添加引用说明而无需重复完整解读。
      - **标签切换 `<script>`**：保留模板中的 `switchTab()` 函数以确保标签切换正常工作。
    - HTML 文件必须是自包含的（不依赖外部资源），所有 CSS 保持在 `<style>` 标签内，所有 JS 保持在 `<script>` 标签内。
@@ -80,7 +80,7 @@ description: 从 WebFetch/WebSearch 结果生成简洁、易读的 GitHub Trendi
 | 排名 | 项目 | 语言 | 新增 Stars | 通俗解释 |
 |------|------|------|------------|----------|
 
-## 持续热门
+## 近期最佳
 
 | 项目 | 证据 | 为什么值得关注 |
 |------|------|----------------|
