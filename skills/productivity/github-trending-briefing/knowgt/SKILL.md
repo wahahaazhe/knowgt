@@ -31,10 +31,11 @@ Create a plain-language briefing from GitHub Trending. Prefer WebFetch/WebSearch
 
 5. Write the briefing:
    - Use direct language. Avoid jargon such as architecture, paradigm, empowerment, enablement, leverage, and strategic moat unless the repository itself uses those words and they are necessary.
-   - Explain what each project helps someone do, not its internal implementation.
-   - **Key principle: a non-technical person should understand it.** If someone outside tech can't grasp what the project does after reading your explanation, it's not good enough.
+   - Explain what problem each project solves and where it fits. Do not flatten useful technical meaning just to sound simple.
+   - Keep necessary domain terms when they are the clearest words: LLM, RAG, agent, API, TTS, Markdown, token, crawler, and similar terms are allowed.
+   - **Key principle: plain language, not childish language.** A non-specialist should get the gist, and a technical reader should still see the project's real value.
    - Don't copy-paste similar vague descriptions across projects (e.g., "AI-native", "modern architecture"). Each project's explanation must capture what makes it unique.
-   - Include a simple analogy only when explaining an unfamiliar project.
+   - Include a simple analogy only when it genuinely clarifies an unfamiliar project. Do not force analogies.
    - For "who needs it", name concrete people and situations, not broad labels like developer or engineer.
 
 6. Save markdown output when working in a repo:
@@ -95,9 +96,9 @@ Short paragraphs explaining the strongest pattern in normal language.
 When asked to explain individual repositories, use this format:
 
 ```markdown
-**What is it?** 30 words or fewer.
+**What is it?** 1-2 clear sentences.
 
-**Simple analogy:** One everyday comparison.
+**Simple analogy:** Optional; only when it clarifies the project.
 
 **What can it help you do?**
 - Help you ...

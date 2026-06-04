@@ -33,10 +33,11 @@ Create a plain-language briefing from GitHub Trending. Prefer WebFetch/WebSearch
    - **Structure rule**: Output exactly 4 sections (New On The List, Recent Best, Trend Read, Full List). NEVER split by growth rate into multiple tiers (e.g., "Rising Stars / Steady Growth / Stable").
    - Use direct language. Avoid jargon such as architecture, paradigm, empowerment, enablement, leverage, and strategic moat unless the repository itself uses those words and they are necessary.
    - **Column name must be "Plain-English Use"**, not "Description", "Summary", or "Features".
-   - **Explain from user perspective**: Every "Plain-English Use" cell must include user-centric phrases like "helps you...", "lets you...", "saves you from...". Explain what the project **helps the user do**, not its internal implementation or marketing tagline.
-   - **Key principle: a non-technical person should understand it.** If someone outside tech can't grasp what the project does after reading your explanation, it's not good enough.
+   - Explain what problem each project solves and where it fits. Do not flatten useful technical meaning just to sound simple.
+   - Keep necessary domain terms when they are the clearest words: LLM, RAG, agent, API, TTS, Markdown, token, crawler, and similar terms are allowed.
+   - **Key principle: plain language, not childish language.** A non-specialist should get the gist, and a technical reader should still see the project's real value.
    - Don't copy-paste similar vague descriptions across projects (e.g., "AI-native", "modern architecture"). Each project's explanation must capture what makes it unique.
-   - Include a simple analogy only when explaining an unfamiliar project.
+   - Include a simple analogy only when it genuinely clarifies an unfamiliar project. Do not force analogies.
    - For "who needs it", name concrete people and situations, not broad labels like developer or engineer.
 
 6. Save markdown output when working in a repo:
@@ -102,13 +103,14 @@ Use only in detailed reports. Keep "Plain-English Use" column in briefings conci
 Analyze this GitHub Trending project. Requirements:
 
 - No jargon like "architecture", "paradigm", "empowerment", "leverage"
-- Every explanation needs a everyday analogy (explain like I'm your grandma)
-- Focus on "what it helps you do", not technical internals
+- Keep important domain terms when they are useful: LLM, RAG, agent, API, TTS, Markdown, token, crawler
+- Focus on project positioning, the problem it solves, and the scenario where it matters
+- Use analogies only when they add clarity; do not infantilize the explanation
 - Name concrete people and situations, not "developers" or "engineers"
 
 Output format:
-What is it? (Under 30 words, plain language)
-Analogy (One everyday object or scenario)
+What is it? (1-2 clear sentences)
+Analogy (Optional; only if it clarifies the project)
 What can it help you do? (3 items, each starts with a verb)
 
 Help you...
@@ -126,7 +128,8 @@ Example: A new hire inheriting messy legacy code
 After writing, check each item. Rewrite if anything fails:
 - [ ] Are there exactly 4 sections (New On The List, Recent Best, Trend Read, Full List)?
 - [ ] Is the 5th column of "New On The List" table named "Plain-English Use"?
-- [ ] Does every "Plain-English Use" cell contain user-centric phrases like "helps you / lets you / saves you from"?
+- [ ] Does every "Plain-English Use" cell preserve the project's type, use case, or differentiator?
+- [ ] Did the explanation become childish, generic, or too watered down? If yes, rewrite it.
 - [ ] Was the list split into multiple tiers by growth rate (e.g., "Rising Stars / Steady Growth / Stable")? If yes, merge back into a single table.
 - [ ] Are there any jargon words like "architecture / empowerment / paradigm / leverage"?
 
