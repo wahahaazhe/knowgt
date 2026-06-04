@@ -59,9 +59,8 @@ Every run creates two files in `trending_reports/`:
 #### 5. Hidden Gems - Beat Trending Latency
 
 **Catch rising stars early:**
-- 🚀 Find projects with > 200 stars today but not on Trending
-- 👥 Check community heat (Reddit/HN/Twitter) and contributor activity
-- 🎯 Add "Hidden Gems" section with detection criteria
+- 🚀 Take Top 5 projects by stars gained today, excluding those already on Trending
+- 🎯 Add dedicated "Hidden Gems" section
 
 **Lock in the next big thing before everyone else.**
 
@@ -139,7 +138,7 @@ Both methods work the same, pick what you prefer.
 | 🎯 **Trend Analysis** | Summarize technology winds, interpret the reasons behind |
 | 🌍 **Bilingual Support** | Two independent skills for English and Chinese |
 | 💬 **Plain-Language** | Not just dry lists - tells you "what this actually is" and "who needs it" |
-| 💎 **Hidden Gems** | Find high-potential projects outside Trending, catch them early |
+| 💎 **Hidden Gems** | Take Top 5 by stars gained, find rising stars not on Trending |
 | 📊 **Optional HTML** | Visualization add-on - only when you ask for it |
 
 ---

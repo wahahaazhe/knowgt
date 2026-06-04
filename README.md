@@ -59,9 +59,8 @@
 #### 5. 近期最佳 - 突破 Trending 滞后性
 
 **提前发现潜力项目：**
-- 🚀 识别增长异常但未进 Trending 的项目（今日新增 > 200 stars）
-- 👥 关注社区热度（Reddit/HN/Twitter）和 Contributor 活跃度
-- 🎯 单独列出「近期最佳」板块，标注判断依据
+- 🚀 按今日新增 stars 降序取 Top 5，排除已在 Trending 的项目
+- 🎯 单独列出「近期最佳」板块
 
 **帮你在别人发现前锁定下一个爆款。**
 
@@ -139,7 +138,7 @@ cp knowgt/skills/productivity/github-trending-briefing/knowgtzh/SKILL.md ~/.clau
 | 🎯 **趋势分析** | 归纳技术风向，解读背后的原因 |
 | 🌍 **双语支持** | 中英文两个独立 skill |
 | 💬 **人话解读** | 不是干巴巴的列表，告诉你「这到底是什么」「谁该用」 |
-| 💎 **近期最佳挖掘** | 发现 Trending 之外的高潜力项目，提前锁定爆款 |
+| 💎 **近期最佳挖掘** | 按新增 stars 降序取 Top 5，发现 Trending 之外的潜力项目 |
 | 📊 **可选可视化** | HTML 可视化展示 — 需要时才生成 |
 
 ---
