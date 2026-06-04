@@ -27,7 +27,7 @@ Create a plain-language briefing from GitHub Trending. Prefer WebFetch/WebSearch
 4. Compare:
    - Identify new entries, stay-hot projects, and dropped-out projects
    - Group trends by theme (AI, tools, infra, etc.)
-   - **Hidden Gems**: Find > 200 stars today not on Trending, check community heat, add dedicated section with criteria
+   - **Hidden Gems**: Find > 200 stars today not on Trending, add dedicated section
 
 5. Write the briefing:
    - Use direct language. Avoid jargon such as architecture, paradigm, empowerment, enablement, leverage, and strategic moat unless the repository itself uses those words and they are necessary.
