@@ -1,6 +1,6 @@
-# knowgt - 推广文案
+# KnowGT - 推广文案
 
-> knowgt = Know GitHub Trending · 用中文人话解读技术趋势
+> KnowGT = Know GitHub Trending · 用中文人话解读技术趋势
 
 ## 🎯 核心卖点
 
@@ -83,10 +83,10 @@ GitHub Trending 上的项目描述总是看不懂？
 
 ```bash
 # macOS / Linux
-curl -s https://raw.githubusercontent.com/wahahaazhe/knowgt/main/install.sh | bash
+curl -s https://raw.githubusercontent.com/wahahaazhe/KnowGT/main/install.sh | bash
 
 # Windows
-iwr https://raw.githubusercontent.com/wahahaazhe/knowgt/main/install.ps1 | iex
+iwr https://raw.githubusercontent.com/wahahaazhe/KnowGT/main/install.ps1 | iex
 ```
 
 重启 Claude Code，直接说"帮我看看今天 GitHub 趋势"即可使用。
@@ -123,9 +123,9 @@ iwr https://raw.githubusercontent.com/wahahaazhe/knowgt/main/install.ps1 | iex
 > 每天 3 分钟，看懂 GitHub 热榜。
 > 把抽象的技术项目，翻译成人话讲给你听。
 >
-> knowgt - Claude Code 插件
+> KnowGT - Claude Code 插件
 >
-> #GitHub #AI #ClaudeCode #knowgt
+> #GitHub #AI #ClaudeCode #KnowGT
 
 ---
 
@@ -182,5 +182,5 @@ iwr https://raw.githubusercontent.com/wahahaazhe/knowgt/main/install.ps1 | iex
 
 ## 🔗 链接
 
-- GitHub: https://github.com/wahahaazhe/knowgt
+- GitHub: https://github.com/wahahaazhe/KnowGT
 - 安装方式见 README

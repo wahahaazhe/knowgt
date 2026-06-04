@@ -1,4 +1,6 @@
-# knowgt - Know GitHub Trending
+# KnowGT - Know GitHub Trending
+
+![KnowGT Banner](../assets/knowgt-banner.png)
 
 [简体中文](README.zh-CN.md) | **English**
 
@@ -6,7 +8,7 @@
 
 **3 minutes a day, understand GitHub Trending.**
 
-> knowgt = Know GitHub Trending · Plain-language insights into technical trends
+> KnowGT = Know GitHub Trending · Plain-language insights into technical trends
 
 Translate abstract technical projects into human-readable terms, intelligently identify recurring content, and show you the real technology trends.
 

@@ -1,4 +1,6 @@
-# knowgt - Know GitHub Trending
+# KnowGT - Know GitHub Trending
+
+![KnowGT Banner](assets/knowgt-banner.png)
 
 **简体中文** | [English](READMEs/README.en.md)
 
@@ -6,7 +8,7 @@
 
 **每天 3 分钟，看懂 GitHub 热榜。**
 
-> knowgt = Know GitHub Trending · 用中文人话解读技术趋势
+> KnowGT = Know GitHub Trending · 用中文人话解读技术趋势
 
 把抽象的技术项目翻译成人话，智能识别重复内容，告诉你真正的技术趋势。
 
