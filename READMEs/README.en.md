@@ -158,7 +158,6 @@ trending_reports/
 **Briefing includes:**
 - 🔥 Newly trending projects
 - ⭐ Projects staying hot (signaling real demand)
-- 📉 Projects that dropped out (interpreting heat changes)
 - 🎯 Overall technology trend analysis
 
 **Detailed Report includes:**
