@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Trending Briefing · YYYY-MM-DD</title>
+<style>
+  /* ═══════════════════════════════════════════════
+     RESET & BASE
+     ═══════════════════════════════════════════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+                 "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.6;
+    color: #1a1a2e;
+    background: #f0f2f5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══════════════════════════════════════════════
+     HERO HEADER
+     ═══════════════════════════════════════════════ */
+  .hero {
+    position: relative;
+    background: linear-gradient(160deg, #0d1117 0%, #161b22 40%, #0f1a2e 70%, #1a0a2e 100%);
+    color: #fff;
+    padding: 56px 0 44px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 50%, rgba(88,166,255,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(163,113,247,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12) 30%, rgba(255,255,255,0.12) 70%, transparent);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .hero h1 {
+    font-size: 30px;
+    font-weight: 750;
+    letter-spacing: -0.6px;
+    line-height: 1.25;
+  }
+  .hero h1 .icon { margin-right: 10px; }
+  .hero .subtitle {
+    margin-top: 6px;
+    font-size: 15px;
+    color: #8b949e;
+    font-weight: 400;
+  }
+  .hero .meta-row {
+    margin-top: 18px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .hero .meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(255,255,255,0.08);
+    color: #c9d1d9;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .hero .meta-chip .chip-label { color: #58a6ff; font-weight: 600; margin-right: 2px; }
+
+  /* ═══════════════════════════════════════════════
+     STATS BAR
+     ═══════════════════════════════════════════════ */
+  .stats-bar {
+    max-width: 1000px;
+    margin: -18px auto 0;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .stat-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    border: 1px solid #e8eaed;
+  }
+  .stat-card .stat-num {
+    font-size: 28px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+  }
+  .stat-card .stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-top: 2px;
+  }
+  .stat-new  .stat-num { color: #1a7f37; }
+  .stat-hot  .stat-num { color: #9a6700; }
+  .stat-drop .stat-num { color: #cf222e; }
+  .stat-total .stat-num { color: #0969da; }
+
+  /* ═══════════════════════════════════════════════
+     MAIN CONTENT AREA
+     ═══════════════════════════════════════════════ */
+  .main {
+    max-width: 1000px;
+    margin: 28px auto 0;
+    padding: 0 24px;
+    padding-bottom: 80px;
+  }
+
+  /* ═══════════════════════════════════════════════
+     TAB NAVIGATION
+     ═══════════════════════════════════════════════ */
+  .tab-nav {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #e8eaed;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    border-radius: 7px;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .tab-btn.active {
+    background: #0969da;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(9,105,218,0.3);
+  }
+  .tab-btn:not(.active):hover { color: #1a1a2e; background: #f6f8fa; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ═══════════════════════════════════════════════
+     SECTION CARDS
+     ═══════════════════════════════════════════════ */
+  .section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 26px 30px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #e8eaed;
+  }
+  .section h2 {
+    font-size: 18px;
+    font-weight: 650;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .badge-new  { background: #dafbe1; color: #116329; }
+  .badge-hot  { background: #fff8c5; color: #7a6000; }
+  .badge-drop { background: #ffebe9; color: #a40e26; }
+
+  /* ── Tables ── */
+  .table-wrap { overflow-x: auto; margin: 0 -4px; padding: 0 4px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 620px;
+  }
+  thead th {
+    text-align: left;
+    padding: 8px 12px 10px;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6b7280;
+    border-bottom: 2px solid #e5e7eb;
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 11px 12px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: middle;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr { transition: background 0.15s; }
+  tbody tr:hover { background: #f6f8fa; }
+
+  .rank-num { font-weight: 700; color: #6b7280; font-size: 13px; }
+  .project-link { color: #0969da; text-decoration: none; font-weight: 600; }
+  .project-link:hover { text-decoration: underline; }
+  .lang-tag {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    background: #f0f0f5;
+    color: #555;
+    white-space: nowrap;
+  }
+  .stars-num   { font-weight: 650; color: #1a1a2e; white-space: nowrap; }
+  .stars-gained { color: #1a7f37; font-weight: 650; white-space: nowrap; }
+  .stars-lost   { color: #cf222e; font-weight: 650; white-space: nowrap; }
+  .evidence-text { font-size: 13px; color: #6b7280; }
+  .explain-text  { font-size: 14px; line-height: 1.55; }
+
+  /* ── Trend Read ── */
+  .trend-read p { margin-bottom: 10px; font-size: 15px; line-height: 1.75; }
+  .trend-read p:last-child { margin-bottom: 0; }
+
+  /* ═══════════════════════════════════════════════
+     DETAIL TAB — PROJECT CARDS
+     ═══════════════════════════════════════════════ */
+  .detail-list { display: flex; flex-direction: column; gap: 20px; }
+
+  .project-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #e8eaed;
+  }
+  .project-card-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f5;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .project-card-header .name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .project-card-header h3 {
+    font-size: 18px;
+    font-weight: 650;
+  }
+  .project-card-header h3 a {
+    color: #0969da;
+    text-decoration: none;
+  }
+  .project-card-header h3 a:hover { text-decoration: underline; }
+  .project-card-header .stars-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 13px;
+    color: #6b7280;
+    white-space: nowrap;
+  }
+  .project-card-body {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .proj-what-is-it {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .proj-what-is-it strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+  .proj-analogy {
+    background: #f6f8fa;
+    border-left: 3px solid #d0d7de;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #444;
+    font-style: italic;
+  }
+  .proj-analogy strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #6b7280;
+    margin-bottom: 4px;
+    font-style: normal;
+  }
+  .proj-helps ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .proj-helps li {
+    font-size: 14px;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .proj-helps li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #0969da;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .proj-helps strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #6b7280;
+    margin-bottom: 6px;
+  }
+  .proj-who {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .proj-who strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+  .proj-who .persona {
+    display: inline-block;
+    padding: 3px 10px;
+    margin: 2px 4px 2px 0;
+    background: #eaf2fd;
+    color: #0550ae;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* ═══════════════════════════════════════════════
+     EMPTY / PLACEHOLDER
+     ═══════════════════════════════════════════════ */
+  .empty-row td { text-align: center; color: #9ca3af; padding: 20px 12px !important; }
+
+  /* ═══════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════ */
+  .footer {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    text-align: center;
+    font-size: 12px;
+    color: #9ca3af;
+  }
+
+  /* ═══════════════════════════════════════════════
+     RESPONSIVE
+     ═══════════════════════════════════════════════ */
+  @media (max-width: 700px) {
+    .hero { padding: 36px 0 30px; }
+    .hero h1 { font-size: 22px; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat-card { padding: 14px 12px; }
+    .stat-card .stat-num { font-size: 22px; }
+    .section { padding: 18px 14px; }
+    .tab-nav { flex-wrap: wrap; }
+    .tab-btn { flex: unset; width: 50%; }
+    .project-card-header { flex-direction: column; gap: 8px; }
+  }
+
+  /* ═══════════════════════════════════════════════
+     PRINT
+     ═══════════════════════════════════════════════ */
+  @media print {
+    body { background: #fff; }
+    .hero { background: #0d1117; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .tab-nav { display: none; }
+    .tab-content { display: block !important; margin-bottom: 30px; }
+    .section, .project-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+    .stats-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-content">
+    <h1><span class="icon">&#x1f4ca;</span>GitHub Trending Briefing &mdash; YYYY-MM-DD</h1>
+    <p class="subtitle">Plain-language insights into what the developer world is excited about today.</p>
+    <div class="meta-row">
+      <span class="meta-chip"><span class="chip-label">Since</span> daily</span>
+      <span class="meta-chip"><span class="chip-label">Source</span> github.com/trending</span>
+      <span class="meta-chip"><span class="chip-label">Baseline</span> &lt;dates or "none"&gt;</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     STATS
+     ═══════════════════════════════════════════════ -->
+<div class="stats-bar">
+  <!--
+    Replace numbers with actual counts:
+    <div class="stat-card stat-total"><div class="stat-num">25</div><div class="stat-label">Total Repos</div></div>
+    <div class="stat-card stat-new"><div class="stat-num">12</div><div class="stat-label">New Entries</div></div>
+    <div class="stat-card stat-hot"><div class="stat-num">8</div><div class="stat-label">Still Hot</div></div>
+    <div class="stat-card stat-drop"><div class="stat-num">5</div><div class="stat-label">Dropped Out</div></div>
+  -->
+  <div class="stat-card stat-total"><div class="stat-num">25</div><div class="stat-label">Total Repos</div></div>
+  <div class="stat-card stat-new"><div class="stat-num">14</div><div class="stat-label">New Entries</div></div>
+  <div class="stat-card stat-hot"><div class="stat-num">6</div><div class="stat-label">Still Hot</div></div>
+  <div class="stat-card stat-drop"><div class="stat-num">5</div><div class="stat-label">Dropped Out</div></div>
+</div>
+
+<div class="main">
+
+  <!-- ════════════════════════════════════════════
+       TAB BAR
+       ════════════════════════════════════════════ -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('briefing', this)">Briefing</button>
+    <button class="tab-btn" onclick="switchTab('detailed', this)">Detailed Report</button>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       TAB 1: BRIEFING
+       ════════════════════════════════════════════ -->
+  <div id="tab-briefing" class="tab-content active">
+
+    <!-- ── NEW ON THE LIST ── -->
+    <div class="section">
+      <h2><span class="badge badge-new">NEW</span> New On The List</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Project</th><th>Lang</th><th>Stars Gained</th><th>Plain-English Use</th></tr>
+          </thead>
+          <tbody>
+            <!--
+              Repeat <tr> per project:
+              <tr>
+                <td class="rank-num">1</td>
+                <td><a class="project-link" href="https://github.com/owner/repo">owner/repo</a></td>
+                <td><span class="lang-tag">Python</span></td>
+                <td class="stars-gained">+1,200</td>
+                <td class="explain-text">What it helps you do, in one sentence.</td>
+              </tr>
+            -->
+            <tr class="empty-row"><td colspan="5">(No new entries today)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── STILL HOT ── -->
+    <div class="section">
+      <h2><span class="badge badge-hot">STILL HOT</span> Still Hot</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Project</th><th>Evidence</th><th>Why It Matters</th></tr>
+          </thead>
+          <tbody>
+            <!--
+              <tr>
+                <td><a class="project-link" href="https://github.com/owner/repo">owner/repo</a></td>
+                <td class="evidence-text">5+ days on list</td>
+                <td class="explain-text">Why continued presence signals real demand.</td>
+              </tr>
+            -->
+            <tr class="empty-row"><td colspan="3">(No still-hot entries)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── DROPPED OUT ── -->
+    <div class="section">
+      <h2><span class="badge badge-drop">DROPPED</span> Dropped Out</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Project</th><th>Previous Status</th><th>Likely Meaning</th></tr>
+          </thead>
+          <tbody>
+            <!--
+              <tr>
+                <td><a class="project-link" href="https://github.com/owner/repo">owner/repo</a></td>
+                <td class="evidence-text">#1 yesterday</td>
+                <td class="explain-text">One-time spike, trend shift, or similar explanation.</td>
+              </tr>
+            -->
+            <tr class="empty-row"><td colspan="3">(No dropped entries / no prior baseline)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── TREND READ ── -->
+    <div class="section trend-read">
+      <h2>&#x1f50d; Trend Read</h2>
+      <!--
+        <p>First paragraph describing the strongest pattern observed today.</p>
+        <p>Second paragraph with additional insight or competing trends.</p>
+      -->
+      <p style="color:#9ca3af;">(No trend analysis yet)</p>
+    </div>
+
+    <!-- ── FULL LIST ── -->
+    <div class="section">
+      <h2>&#x1f4cb; Full List</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Project</th><th>Lang</th><th>Total Stars</th><th>Stars Gained</th></tr>
+          </thead>
+          <tbody>
+            <!--
+              <tr>
+                <td class="rank-num">1</td>
+                <td><a class="project-link" href="https://github.com/owner/repo">owner/repo</a></td>
+                <td><span class="lang-tag">Python</span></td>
+                <td class="stars-num">35,000</td>
+                <td class="stars-gained">+1,200</td>
+              </tr>
+            -->
+            <tr class="empty-row"><td colspan="5">(No data)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /tab-briefing -->
+
+  <!-- ════════════════════════════════════════════
+       TAB 2: DETAILED
+       ════════════════════════════════════════════ -->
+  <div id="tab-detailed" class="tab-content">
+
+    <div class="detail-list">
+      <!--
+        For each first-time project, repeat a .project-card:
+
+        <div class="project-card">
+          <div class="project-card-header">
+            <div class="name-row">
+              <span class="rank-num">#1</span>
+              <h3><a href="https://github.com/owner/repo">owner/repo</a></h3>
+              <span class="lang-tag">Python</span>
+            </div>
+            <div class="stars-info">
+              <span class="stars-num">35,000 total</span>
+              <span class="stars-gained">+1,200 today</span>
+            </div>
+          </div>
+          <div class="project-card-body">
+            <div class="proj-what-is-it">
+              <strong>What is it?</strong>
+              Explain what this project does in 30 words or less, plain language.
+            </div>
+            <div class="proj-analogy">
+              <strong>Simple analogy</strong>
+              An everyday comparison — like explaining it to a grandparent.
+            </div>
+            <div class="proj-helps">
+              <strong>What can it help you do?</strong>
+              <ul>
+                <li>Help you ...</li>
+                <li>Let you ...</li>
+                <li>Save you from ...</li>
+              </ul>
+            </div>
+            <div class="proj-who">
+              <strong>Who actually needs it?</strong>
+              <span class="persona">A specific person with a concrete problem</span>
+              <span class="persona">Another person with a different use case</span>
+            </div>
+          </div>
+        </div>
+
+        For projects already covered in prior reports, use a shorter card:
+        <div class="project-card" style="opacity:0.7">
+          ...same structure but shorter, with a note referencing the prior report...
+        </div>
+      -->
+      <p style="color:#9ca3af; text-align:center; padding:40px 0;">(No detailed breakdowns yet)</p>
+    </div>
+
+  </div><!-- /tab-detailed -->
+
+</div><!-- /main -->
+
+<div class="footer">
+  Generated by knowgt &middot; <span class="generated-date">YYYY-MM-DD HH:MM</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB SWITCHING SCRIPT
+     ═══════════════════════════════════════════════ -->
+<script>
+  function switchTab(name, el) {
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-content').forEach(function(tab) {
+      tab.classList.remove('active');
+    });
+    el.classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+</script>
+
+</body>
+</html>

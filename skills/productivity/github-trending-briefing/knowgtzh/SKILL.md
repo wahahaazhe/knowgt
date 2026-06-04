@@ -47,7 +47,7 @@ description: 从 WebFetch/WebSearch 结果生成简洁、易读的 GitHub Trendi
 
 7. 【可选】生成 HTML 报告：
    - HTML 是可选功能，默认不生成。仅在用户明确要求“生成 HTML”“可视化”时才执行。
-   - 读取模板文件 `skills/productivity/github-trending-briefing/reference/briefing-template.html`，理解其 CSS 和 DOM 结构。模板采用**单页双标签设计**，将简报和详细报告合并在同一页面。
+   - 读取本 skill 目录下的模板文件 `reference/briefing-template.html`，理解其 CSS 和 DOM 结构。模板采用**单页双标签设计**，将简报和详细报告合并在同一页面。
    - 生成 `trending_reports/trending_briefing_YYYY-MM-DD.html`，使用与模板**完全相同的 CSS 和 DOM 结构**。将每个部分填入真实数据：
      - **Hero 头部**：更新标题、日期、周期、来源、对比基准等信息。
      - **Stats 统计栏**：将示例数字替换为实际统计（总项目数、新上榜数、近期最佳数）。

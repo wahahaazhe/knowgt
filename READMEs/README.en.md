@@ -81,23 +81,28 @@ HTML visualization is an **optional add-on feature**:
 
 **macOS / Linux:**
 ```bash
-curl -s https://raw.githubusercontent.com/wahahaazhe/knowgt/main/install.sh | bash
+curl -s https://raw.githubusercontent.com/wahahaazhe/KnowGT/master/install.sh | bash
 ```
 
 **Windows (PowerShell):**
 ```powershell
-iwr https://raw.githubusercontent.com/wahahaazhe/knowgt/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/wahahaazhe/KnowGT/master/install.ps1 | iex
 ```
+
+> In Windows PowerShell, `curl` is an alias for `Invoke-WebRequest`; do not use the macOS/Linux command there.
 
 #### Method 2: Manual Install
 
 ```bash
 # Clone the repo
-git clone https://github.com/wahahaazhe/knowgt.git
+git clone https://github.com/wahahaazhe/KnowGT.git knowgt
 
-# Copy skills to your global skills directory
-cp knowgt/skills/productivity/github-trending-briefing/knowgt/SKILL.md ~/.claude/skills/knowgt.md
-cp knowgt/skills/productivity/github-trending-briefing/knowgtzh/SKILL.md ~/.claude/skills/knowgtzh.md
+# Copy skills to your global skills directory and keep reference assets
+mkdir -p ~/.claude/skills/knowgt ~/.claude/skills/knowgtzh
+cp knowgt/skills/productivity/github-trending-briefing/knowgt/SKILL.md ~/.claude/skills/knowgt/SKILL.md
+cp -R knowgt/skills/productivity/github-trending-briefing/knowgt/reference ~/.claude/skills/knowgt/reference
+cp knowgt/skills/productivity/github-trending-briefing/knowgtzh/SKILL.md ~/.claude/skills/knowgtzh/SKILL.md
+cp -R knowgt/skills/productivity/github-trending-briefing/knowgtzh/reference ~/.claude/skills/knowgtzh/reference
 ```
 
 #### Method 3: Install as Plugin
@@ -119,6 +124,8 @@ After restarting Claude Code, two ways to use:
 /knowgtzh    # 生成中文简报 + 详细报告
 /knowgt      # Generate English briefing + detailed report
 ```
+
+> Skill commands are case-sensitive. Use `/knowgt` or `/knowgtzh`, not `/Knowgt` or `/KnowGT`.
 
 #### 💬 Method 2: Natural Language
 
@@ -195,8 +202,13 @@ trending_reports/
 ```
 knowgt/
 ├── skills/productivity/github-trending-briefing/
-│   ├── knowgt/                   # English skill (SKILL.md)
-│   ├── knowgtzh/                 # 中文 skill (SKILL.md)
+│   ├── knowgt/                   # English skill
+│   │   ├── SKILL.md
+│   │   └── reference/            # HTML template bundled with skill
+│   ├── knowgtzh/                 # 中文 skill
+│   │   ├── SKILL.md
+│   │   └── reference/            # HTML template bundled with skill
+│   ├── reference/                # shared HTML template source
 │   ├── examples/                 # Output examples
 │   └── README.md
 ├── READMEs/

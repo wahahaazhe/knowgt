@@ -80,23 +80,28 @@ HTML 可视化是**可选附加功能**：
 
 **macOS / Linux:**
 ```bash
-curl -s https://raw.githubusercontent.com/wahahaazhe/knowgt/main/install.sh | bash
+curl -s https://raw.githubusercontent.com/wahahaazhe/KnowGT/master/install.sh | bash
 ```
 
 **Windows (PowerShell):**
 ```powershell
-iwr https://raw.githubusercontent.com/wahahaazhe/knowgt/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/wahahaazhe/KnowGT/master/install.ps1 | iex
 ```
+
+> Windows PowerShell 里的 `curl` 是 `Invoke-WebRequest` 别名，不要用上面的 macOS/Linux 命令。
 
 #### 方式二：手动安装
 
 ```bash
 # 克隆仓库
-git clone https://github.com/wahahaazhe/knowgt.git
+git clone https://github.com/wahahaazhe/KnowGT.git knowgt
 
-# 复制 skill 到你的全局 skills 目录
-cp knowgt/skills/productivity/github-trending-briefing/knowgt/SKILL.md ~/.claude/skills/knowgt.md
-cp knowgt/skills/productivity/github-trending-briefing/knowgtzh/SKILL.md ~/.claude/skills/knowgtzh.md
+# 复制 skill 到你的全局 skills 目录（保留 reference 模板资源）
+mkdir -p ~/.claude/skills/knowgt ~/.claude/skills/knowgtzh
+cp knowgt/skills/productivity/github-trending-briefing/knowgt/SKILL.md ~/.claude/skills/knowgt/SKILL.md
+cp -R knowgt/skills/productivity/github-trending-briefing/knowgt/reference ~/.claude/skills/knowgt/reference
+cp knowgt/skills/productivity/github-trending-briefing/knowgtzh/SKILL.md ~/.claude/skills/knowgtzh/SKILL.md
+cp -R knowgt/skills/productivity/github-trending-briefing/knowgtzh/reference ~/.claude/skills/knowgtzh/reference
 ```
 
 #### 方式三：作为插件安装
@@ -118,6 +123,8 @@ cp knowgt/skills/productivity/github-trending-briefing/knowgtzh/SKILL.md ~/.clau
 /knowgtzh    # 生成中文简报 + 详细报告
 /knowgt      # Generate English briefing + detailed report
 ```
+
+> 命令名区分大小写，请使用 `/knowgt` 或 `/knowgtzh`，不要写成 `/Knowgt` 或 `/KnowGT`。
 
 #### 💬 方式二：自然语言
 
@@ -194,8 +201,13 @@ trending_reports/
 ```
 knowgt/
 ├── skills/productivity/github-trending-briefing/
-│   ├── knowgt/                   # English skill (SKILL.md)
-│   ├── knowgtzh/                 # 中文 skill (SKILL.md)
+│   ├── knowgt/                   # English skill
+│   │   ├── SKILL.md
+│   │   └── reference/            # HTML template bundled with skill
+│   ├── knowgtzh/                 # 中文 skill
+│   │   ├── SKILL.md
+│   │   └── reference/            # HTML 模板资源
+│   ├── reference/                # shared HTML template source
 │   ├── examples/                 # 输出示例
 │   └── README.md
 ├── READMEs/

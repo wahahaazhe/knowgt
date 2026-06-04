@@ -19,9 +19,12 @@ Generate plain-language GitHub Trending briefings for Claude Code. Available in 
 Or manually:
 
 ```bash
-# Copy skills to your global skills directory
-cp skills/productivity/github-trending-briefing/knowgt/SKILL.md ~/.claude/skills/knowgt.md
-cp skills/productivity/github-trending-briefing/knowgtzh/SKILL.md ~/.claude/skills/knowgtzh.md
+# Copy skills to your global skills directory and keep reference assets
+mkdir -p ~/.claude/skills/knowgt ~/.claude/skills/knowgtzh
+cp skills/productivity/github-trending-briefing/knowgt/SKILL.md ~/.claude/skills/knowgt/SKILL.md
+cp -R skills/productivity/github-trending-briefing/knowgt/reference ~/.claude/skills/knowgt/reference
+cp skills/productivity/github-trending-briefing/knowgtzh/SKILL.md ~/.claude/skills/knowgtzh/SKILL.md
+cp -R skills/productivity/github-trending-briefing/knowgtzh/reference ~/.claude/skills/knowgtzh/reference
 ```
 
 ## Usage
@@ -32,6 +35,8 @@ cp skills/productivity/github-trending-briefing/knowgtzh/SKILL.md ~/.claude/skil
 /knowgtzh    # 中文简报
 /knowgt      # English briefing
 ```
+
+Skill commands are case-sensitive. Use `/knowgt` or `/knowgtzh`, not `/Knowgt` or `/KnowGT`.
 
 ### Natural Language
 
@@ -55,9 +60,15 @@ Reports are saved to `trending_reports/`.
 ```
 skills/productivity/github-trending-briefing/
 ├── knowgt/
-│   └── SKILL.md          # English skill
+│   ├── SKILL.md          # English skill
+│   └── reference/
+│       └── briefing-template.html
 ├── knowgtzh/
-│   └── SKILL.md          # Chinese skill
+│   ├── SKILL.md          # Chinese skill
+│   └── reference/
+│       └── briefing-template.html
+├── reference/
+│   └── briefing-template.html
 ├── examples/
 │   └── trending_briefing_2026-05-27.md
 └── README.md

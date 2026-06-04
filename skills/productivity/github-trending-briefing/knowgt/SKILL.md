@@ -46,7 +46,7 @@ Create a plain-language briefing from GitHub Trending. Prefer WebFetch/WebSearch
    - Do not overwrite an existing report unless the user asks.
 
 7. Generate HTML report and open in browser:
-   - Read the template at `skills/productivity/github-trending-briefing/reference/briefing-template.html` to understand its CSS and DOM structure. The template is a **single-page, two-tab design** that merges both briefing and detailed views.
+   - Read the template at `reference/briefing-template.html` in this skill directory to understand its CSS and DOM structure. The template is a **single-page, two-tab design** that merges both briefing and detailed views.
    - Generate `trending_reports/trending_briefing_YYYY-MM-DD.html` using the **exact same CSS and DOM structure** as the template. Fill every section with real data:
      - **Hero**: update title, date, since-period, source, baseline chips.
      - **Stats bar**: replace sample numbers with actual counts (total repos, new entries, recent best).

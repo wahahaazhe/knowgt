@@ -82,10 +82,10 @@ GitHub Trending 上的项目描述总是看不懂？
 
 ```bash
 # macOS / Linux
-curl -s https://raw.githubusercontent.com/wahahaazhe/KnowGT/main/install.sh | bash
+curl -s https://raw.githubusercontent.com/wahahaazhe/KnowGT/master/install.sh | bash
 
 # Windows
-iwr https://raw.githubusercontent.com/wahahaazhe/KnowGT/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/wahahaazhe/KnowGT/master/install.ps1 | iex
 ```
 
 重启 Claude Code，直接说"帮我看看今天 GitHub 趋势"即可使用。

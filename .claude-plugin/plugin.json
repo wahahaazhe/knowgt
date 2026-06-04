@@ -2,7 +2,17 @@
   "name": "knowgt",
   "description": "Know GitHub Trending - Generate plain-language GitHub Trending briefings in Chinese and English",
   "version": "1.0.0",
-  "author": "wahahaazhe",
+  "author": {
+    "name": "wahahaazhe"
+  },
+  "license": "MIT",
+  "keywords": [
+    "github-trending",
+    "briefing",
+    "trends",
+    "skills",
+    "claude-code"
+  ],
   "skills": [
     "./skills/productivity/github-trending-briefing/knowgt",
     "./skills/productivity/github-trending-briefing/knowgtzh"
